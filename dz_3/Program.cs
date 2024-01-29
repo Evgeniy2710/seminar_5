@@ -6,45 +6,51 @@ class UserInputToCompileForTest
     /// Вычисление сумм по строкам (на выходе массив с суммами строк)
     public static int[] SumRows(int[,] array)
     {
-        //Напишите свое решение здесь
-        int[] array2 = new int[4];
+      //Напишите свое решение здесь
+      int[] array2 = new int[4];
         int sum = 0;
         for (int i = 0; i < array.GetLength(0); i++)
         {
+            sum = 0;
             for (int j = 0; j < array.GetLength(1); j++)
             {
-                // sum = sum + array[i,j];
-                array2[i] = sum + array[i,j];
+                sum = sum + array[i, j];
+
             }
-            // array2[i] = sum;
-            sum = 0;
+            array2[i] = sum;
+            // sum = 0;
         }
+
         return array2;
     }
-
+    
     // Получение индекса минимального элемента в одномерном массиве
     public static int MinIndex(int[] array)
     {
-        //Напишите свое решение здесь
-        int i = 0;
+       //Напишите свое решение здесь
+      int count = 0;
+        int minindex =0;
         int min = array[0];
-        while (i < array.Length)
+        for (int i = 0; i < array.Length; i++)
         {
             if (array[i] < min)
             {
                 min = array[i];
-                Console.WriteLine($"{min}");
+                // Console.WriteLine($"{min}");
+                minindex = count;
             }
-            i = i + 1;
-
+            else
+            {
+                count = count + 1;
+            }
+            
         }
-        return min;
-      
+        return minindex;
     }
     public static void PrintResult(int[,] numbers)
-    {
-        //Напишите свое решение здесь
-        int[] arr = SumRows(numbers);
+    {   
+       //Напишите свое решение здесь
+      int[] arr = SumRows(numbers);
         Console.WriteLine(MinIndex(arr));
     }
 }
@@ -87,13 +93,13 @@ class Answer
         else
         {
             // Если аргументов на входе нет, используем примерный массив
-
-            numbers = new int[,] {
-                {1, 2, 3}, 
-                {1, 1, 0}, 
-                {7, 8, 2}, 
-                {9, 10, 11} 
-    };
+            
+           numbers = new int[,] {
+                {1, 2, 3},
+                {1, 1, 0},
+                {7, 8, 2},
+                {9, 10, 11}
+    };       
         }
         UserInputToCompileForTest.PrintResult(numbers);
     }
