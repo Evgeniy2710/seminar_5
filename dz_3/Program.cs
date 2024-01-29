@@ -7,15 +7,16 @@ class UserInputToCompileForTest
     public static int[] SumRows(int[,] array)
     {
         //Напишите свое решение здесь
-        int[] array2 = new int[array.GetLength(1)];
+        int[] array2 = new int[4];
         int sum = 0;
-        for (int i = 0; i < array.GetLength(1); i++)
+        for (int i = 0; i < array.GetLength(0); i++)
         {
-            for (int j = 0; j < array.GetLength(0); j++)
+            for (int j = 0; j < array.GetLength(1); j++)
             {
-                sum = sum + array[j, i];
+                // sum = sum + array[i,j];
+                array2[i] = sum + array[i,j];
             }
-            array2[i] = sum;
+            // array2[i] = sum;
             sum = 0;
         }
         return array2;
@@ -32,6 +33,7 @@ class UserInputToCompileForTest
             if (array[i] < min)
             {
                 min = array[i];
+                Console.WriteLine($"{min}");
             }
             i = i + 1;
 
@@ -43,7 +45,7 @@ class UserInputToCompileForTest
     {
         //Напишите свое решение здесь
         int[] arr = SumRows(numbers);
-        MinIndex(arr);
+        Console.WriteLine(MinIndex(arr));
     }
 }
 
@@ -87,10 +89,10 @@ class Answer
             // Если аргументов на входе нет, используем примерный массив
 
             numbers = new int[,] {
-                {1, 2, 3},
-                {1, 1, 0},
-                {7, 8, 2},
-                {9, 10, 11}
+                {1, 2, 3}, 
+                {1, 1, 0}, 
+                {7, 8, 2}, 
+                {9, 10, 11} 
     };
         }
         UserInputToCompileForTest.PrintResult(numbers);
