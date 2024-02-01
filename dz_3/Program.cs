@@ -6,95 +6,89 @@ class UserInputToCompileForTest
     /// Вычисление сумм по строкам (на выходе массив с суммами строк)
     public static int[] SumRows(int[,] array)
     {
-      //Напишите свое решение здесь
-      int[] array2 = new int[4];
-        int sum = 0;
+        //Напишите свое решение здесь
+        // Заранее задаем массив длиной количеством строк входного двумерного массива
+        int[] Result = new int[array.GetLength(0)];
+        // Первый фор для обеспечения прохода по индексам строк
         for (int i = 0; i < array.GetLength(0); i++)
         {
-            sum = 0;
+            // Второй фор для обеспечения прохода по индексам столбцов
             for (int j = 0; j < array.GetLength(1); j++)
             {
-                sum = sum + array[i, j];
-
+                // В результирующий одномерный в элемент с индексом строки суммируем значения строки входного массива
+                Result[i] += array[i, j];
             }
-            array2[i] = sum;
-            // sum = 0;
         }
-
-        return array2;
+        // возврат результата
+        return Result;
     }
-    
+
     // Получение индекса минимального элемента в одномерном массиве
     public static int MinIndex(int[] array)
     {
-       //Напишите свое решение здесь
-      int count = 0;
-        int minindex =0;
-        int min = array[0];
-        for (int i = 0; i < array.Length; i++)
+        // Присваиваем для старта цикла в минимальное значение 
+        int MinimalValue = array[0];
+        // Так же кладём в доп переменную индекс значения
+        int MinimalIndex = 0;
+        // Фор для прохода по каждому значнению в массиве
+        for (int i = 0; i < array.GetLength(0); i++)
         {
-            if (array[i] < min)
+            // Если по текущему индексу значение меньше,чем в зарезервированном, то мы их меняем местами и сохраняем индекс строки
+            if (array[i] < MinimalValue)
             {
-                min = array[i];
-                // Console.WriteLine($"{min}");
-                minindex = count;
+                MinimalValue = array[i];
+                MinimalIndex = i;
             }
-            else
-            {
-                count = count + 1;
-            }
-            
         }
-        return minindex;
+        // Возврат индекса строки
+        return MinimalIndex;
     }
     public static void PrintResult(int[,] numbers)
-    {   
-       //Напишите свое решение здесь
-      int[] arr = SumRows(numbers);
-        Console.WriteLine(MinIndex(arr));
-    }
-}
-
-//Не удаляйте и не меняйте класс Answer!
-class Answer
-{
-    public static void Main(string[] args)
     {
-        int[,] numbers;
+        //Напишите свое решение здесь
+        Console.WriteLine(MinIndex(SumRows(numbers)));
+    }
 
-        if (args.Length >= 1)
+    //Не удаляйте и не меняйте класс Answer!
+    class Answer
+    {
+        public static void Main(string[] args)
         {
-            // Предполагается, что строки разделены запятой и пробелом, а элементы внутри строк разделены пробелом
-            string[] rows = args[0].Split(',');
+            int[,] numbers;
 
-            int rowCount = rows.Length;
-            int colCount = rows[0].Trim().Split(' ').Length;
-
-            numbers = new int[rowCount, colCount];
-
-            for (int i = 0; i < rowCount; i++)
+            if (args.Length >= 1)
             {
-                string[] rowElements = rows[i].Trim().Split(' ');
+                // Предполагается, что строки разделены запятой и пробелом, а элементы внутри строк разделены пробелом
+                string[] rows = args[0].Split(',');
 
-                for (int j = 0; j < colCount; j++)
+                int rowCount = rows.Length;
+                int colCount = rows[0].Trim().Split(' ').Length;
+
+                numbers = new int[rowCount, colCount];
+
+                for (int i = 0; i < rowCount; i++)
                 {
-                    if (int.TryParse(rowElements[j], out int result))
+                    string[] rowElements = rows[i].Trim().Split(' ');
+
+                    for (int j = 0; j < colCount; j++)
                     {
-                        numbers[i, j] = result;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Error parsing element {rowElements[j]} to an integer.");
-                        return;
+                        if (int.TryParse(rowElements[j], out int result))
+                        {
+                            numbers[i, j] = result;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Error parsing element {rowElements[j]} to an integer.");
+                            return;
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            // Если аргументов на входе нет, используем примерный массив
-            
-           numbers = new int[,] {
+            else
+            {
+                // Если аргументов на входе нет, используем примерный массив
+
+                numbers = new int[,] {
                 // {1, 2, 3},
                 // {4, 5, 6},
                 // {7, 8, 9},
@@ -103,8 +97,9 @@ class Answer
                 {1, 1, 0},
                 {7, 8, 2},
                 {9, 10, 11}
-    };       
+    };
+            }
+            UserInputToCompileForTest.PrintResult(numbers);
         }
-        UserInputToCompileForTest.PrintResult(numbers);
     }
 }
